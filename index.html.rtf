@@ -1,0 +1,560 @@
+{\rtf1\ansi\ansicpg936\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="zh-CN">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">\
+    <title>QuietFlow \'b7 AI\uc0\u26234 \u33021 \u38477 \u22122 \u21161 \u30496 \u32819 \u26426 </title>\
+    <style>\
+        * \{\
+            margin: 0;\
+            padding: 0;\
+            box-sizing: border-box;\
+        \}\
+\
+        body \{\
+            font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, Helvetica, sans-serif;\
+            background: #0A0C12;\
+            color: #EDEEF2;\
+            line-height: 1.5;\
+            scroll-behavior: smooth;\
+        \}\
+\
+        .container \{\
+            max-width: 1280px;\
+            margin: 0 auto;\
+            padding: 0 24px;\
+        \}\
+\
+        /* \uc0\u22330 \u26223 \u20999 \u25442 \u25353 \u38062 \u26639  */\
+        .scene-bar \{\
+            display: flex;\
+            justify-content: center;\
+            gap: 16px;\
+            padding: 20px 0;\
+            flex-wrap: wrap;\
+            position: sticky;\
+            top: 0;\
+            background: rgba(10, 12, 18, 0.85);\
+            backdrop-filter: blur(12px);\
+            z-index: 100;\
+            border-bottom: 1px solid rgba(255,255,255,0.08);\
+        \}\
+\
+        .scene-btn \{\
+            background: rgba(255, 255, 255, 0.08);\
+            border: 1px solid rgba(255, 255, 255, 0.2);\
+            padding: 10px 28px;\
+            border-radius: 60px;\
+            font-size: 1rem;\
+            font-weight: 500;\
+            color: #EDEEF2;\
+            cursor: pointer;\
+            transition: all 0.25s ease;\
+            font-family: inherit;\
+            backdrop-filter: blur(4px);\
+        \}\
+\
+        .scene-btn.active \{\
+            background: #6C5CE7;\
+            border-color: #6C5CE7;\
+            box-shadow: 0 4px 14px rgba(108, 92, 231, 0.3);\
+        \}\
+\
+        .scene-btn:hover \{\
+            background: rgba(108, 92, 231, 0.7);\
+            border-color: #6C5CE7;\
+        \}\
+\
+        /* ========== HERO \uc0\u27169 \u22359  - \u20840 \u23631 \u32972 \u26223 \u22270  ========== */\
+        .hero \{\
+            position: relative;\
+            min-height: 85vh;\
+            display: flex;\
+            align-items: center;\
+            justify-content: center;\
+            text-align: center;\
+            border-radius: 32px;\
+            margin: 8px 0 48px;\
+            overflow: hidden;\
+        \}\
+\
+        /* \uc0\u32972 \u26223 \u22270 \u23618  */\
+        .hero-bg \{\
+            position: absolute;\
+            top: 0;\
+            left: 0;\
+            width: 100%;\
+            height: 100%;\
+            background-size: cover;\
+            background-position: center;\
+            background-repeat: no-repeat;\
+            transition: background-image 0.4s ease-in-out;\
+            z-index: 0;\
+        \}\
+\
+        /* \uc0\u28145 \u33394 \u36974 \u32617 \u23618 \u65292 \u20445 \u35777 \u25991 \u23383 \u21487 \u35835  */\
+        .hero-overlay \{\
+            position: absolute;\
+            top: 0;\
+            left: 0;\
+            width: 100%;\
+            height: 100%;\
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%);\
+            z-index: 1;\
+        \}\
+\
+        .hero-content \{\
+            position: relative;\
+            z-index: 2;\
+            max-width: 800px;\
+            margin: 0 auto;\
+            padding: 80px 24px;\
+        \}\
+\
+        .hero-badge \{\
+            display: inline-block;\
+            background: rgba(108, 92, 231, 0.25);\
+            backdrop-filter: blur(8px);\
+            padding: 6px 18px;\
+            border-radius: 40px;\
+            font-size: 0.85rem;\
+            color: #C4B5FD;\
+            margin-bottom: 24px;\
+            border: 1px solid rgba(108, 92, 231, 0.3);\
+        \}\
+\
+        .hero h1 \{\
+            font-size: 3.8rem;\
+            font-weight: 800;\
+            letter-spacing: -0.02em;\
+            margin-bottom: 20px;\
+            line-height: 1.2;\
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);\
+        \}\
+\
+        .hero p \{\
+            font-size: 1.25rem;\
+            color: #E2E8F0;\
+            margin-bottom: 32px;\
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);\
+        \}\
+\
+        .scene-tag \{\
+            display: flex;\
+            gap: 12px;\
+            justify-content: center;\
+            margin: 20px 0 16px;\
+            font-size: 0.9rem;\
+            color: #C4B5FD;\
+        \}\
+\
+        .cta-button \{\
+            background: #6C5CE7;\
+            border: none;\
+            padding: 14px 42px;\
+            border-radius: 60px;\
+            font-size: 1.1rem;\
+            font-weight: 600;\
+            color: white;\
+            cursor: pointer;\
+            transition: all 0.2s ease;\
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);\
+        \}\
+\
+        .cta-button:hover \{\
+            background: #5b4bc4;\
+            transform: scale(1.02);\
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5);\
+        \}\
+\
+        /* \uc0\u36890 \u29992 \u27169 \u22359 \u26631 \u39064  */\
+        .section-title \{\
+            font-size: 2.2rem;\
+            font-weight: 700;\
+            text-align: center;\
+            margin-bottom: 48px;\
+            letter-spacing: -0.01em;\
+        \}\
+\
+        /* Pain Point \uc0\u30171 \u28857 \u21345 \u29255  */\
+        .pain-grid \{\
+            display: flex;\
+            flex-wrap: wrap;\
+            gap: 24px;\
+            margin-bottom: 64px;\
+        \}\
+        .pain-card \{\
+            background: #13161F;\
+            border-radius: 24px;\
+            padding: 28px;\
+            flex: 1;\
+            min-width: 200px;\
+            text-align: center;\
+            border-left: 4px solid #FF6B6B;\
+            transition: transform 0.2s;\
+        \}\
+        .pain-card:hover \{ transform: translateY(-4px); \}\
+        .pain-icon \{ font-size: 2.5rem; margin-bottom: 12px; \}\
+        .pain-card h4 \{ font-size: 1.3rem; margin-bottom: 8px; \}\
+        .pain-card p \{ color: #A9AFCC; font-size: 0.9rem; line-height: 1.5; \}\
+\
+        /* Solution \uc0\u26041 \u26696 \u21306  */\
+        .solution-box \{\
+            background: linear-gradient(145deg, #13161F, #0F111A);\
+            border-radius: 48px;\
+            padding: 48px 40px;\
+            margin-bottom: 64px;\
+            border: 1px solid #2A2F3F;\
+        \}\
+        .solution-highlight \{\
+            font-size: 1.2rem;\
+            color: #A78BFA;\
+            margin-bottom: 20px;\
+            letter-spacing: 1px;\
+        \}\
+        .solution-desc \{\
+            font-size: 1.1rem;\
+            line-height: 1.7;\
+            color: #E2E8F0;\
+        \}\
+\
+        /* Features \uc0\u19977 \u21015  */\
+        .features \{\
+            display: flex;\
+            flex-wrap: wrap;\
+            gap: 32px;\
+            justify-content: center;\
+            margin-bottom: 64px;\
+        \}\
+        .feature-card \{\
+            background: #13161F;\
+            border-radius: 32px;\
+            padding: 32px 24px;\
+            flex: 1;\
+            min-width: 220px;\
+            text-align: center;\
+            border: 1px solid #2A2F3F;\
+            transition: all 0.2s;\
+        \}\
+        .feature-card:hover \{ transform: translateY(-5px); border-color: #6C5CE7; \}\
+        .feature-icon \{ font-size: 2.8rem; margin-bottom: 16px; \}\
+        .feature-card h3 \{ font-size: 1.5rem; margin-bottom: 12px; \}\
+        .feature-card p \{ color: #A9AFCC; font-size: 0.95rem; \}\
+\
+        /* Use Cases \uc0\u24378 \u21270 \u22330 \u26223  - \u21482 \u26174 \u31034 \u24403 \u21069 \u22330 \u26223 \u65292 \u27785 \u28024 \u24335 \u21345 \u29255  */\
+        .usecase-single \{\
+            background: linear-gradient(145deg, #6C5CE7, #4A3BB5);\
+            border-radius: 48px;\
+            padding: 48px 40px;\
+            margin-bottom: 64px;\
+            text-align: center;\
+        \}\
+        .usecase-single h2 \{\
+            font-size: 2rem;\
+            margin-bottom: 16px;\
+        \}\
+        .usecase-single .scene-icon \{\
+            font-size: 3.5rem;\
+            margin-bottom: 20px;\
+        \}\
+        .usecase-detail-rich \{\
+            max-width: 750px;\
+            margin: 0 auto;\
+            text-align: left;\
+            background: rgba(255,255,255,0.08);\
+            border-radius: 32px;\
+            padding: 36px;\
+            margin-top: 28px;\
+            backdrop-filter: blur(4px);\
+        \}\
+        .usecase-detail-rich p \{\
+            margin: 18px 0;\
+            line-height: 1.8;\
+            font-size: 1rem;\
+        \}\
+        .usecase-detail-rich .highlight \{\
+            color: #FFD966;\
+            font-weight: 600;\
+        \}\
+\
+        /* CTA \uc0\u21306 \u22495  */\
+        .cta-section \{\
+            background: linear-gradient(135deg, #6C5CE7 0%, #4A3BB5 100%);\
+            border-radius: 48px;\
+            padding: 64px 32px;\
+            text-align: center;\
+            margin-bottom: 48px;\
+        \}\
+        .cta-section h2 \{ font-size: 2rem; margin-bottom: 16px; \}\
+        .cta-section p \{ margin-bottom: 32px; opacity: 0.9; \}\
+        .cta-big \{\
+            background: white;\
+            color: #6C5CE7;\
+            padding: 16px 48px;\
+            font-size: 1.2rem;\
+            font-weight: bold;\
+            border: none;\
+            border-radius: 60px;\
+            cursor: pointer;\
+            transition: transform 0.2s;\
+        \}\
+        .cta-big:hover \{ transform: scale(1.02); \}\
+\
+        footer \{\
+            text-align: center;\
+            padding: 48px 0 32px;\
+            border-top: 1px solid #262B38;\
+            color: #7C83A3;\
+        \}\
+\
+        @media (max-width: 768px) \{\
+            .hero \{ min-height: 70vh; \}\
+            .hero h1 \{ font-size: 2.2rem; \}\
+            .section-title \{ font-size: 1.8rem; \}\
+            .container \{ padding: 0 16px; \}\
+            .usecase-detail-rich \{ padding: 24px; \}\
+            .solution-box \{ padding: 32px 24px; \}\
+        \}\
+    </style>\
+</head>\
+<body>\
+<div class="container">\
+    <!-- \uc0\u22330 \u26223 \u20999 \u25442 \u26639  -->\
+    <div class="scene-bar">\
+        <button class="scene-btn active" data-scene="plane">\uc0\u9992 \u65039  \u39134 \u26426 \u33329 \u20869 </button>\
+        <button class="scene-btn" data-scene="cafe">\uc0\u9749  \u21654 \u21857 \u39302 </button>\
+        <button class="scene-btn" data-scene="cowork">\uc0\u55357 \u56508  \u20849 \u20139 \u21150 \u20844 </button>\
+    </div>\
+\
+    <!-- \uc0\u21160 \u24577 \u20869 \u23481 \u23481 \u22120  -->\
+    <main id="app"></main>\
+\
+    <footer>\
+        \'a9 2026 QuietFlow \'b7 AI\uc0\u26234 \u33021 \u38477 \u22122 \u21161 \u30496 \u32819 \u26426  | \u35753 \u19990 \u30028 \u23433 \u38745 \u65292 \u35753 \u28789 \u24863 \u27969 \u21160 \
+    </footer>\
+</div>\
+\
+<script>\
+    // \uc0\u22330 \u26223 \u22270 \u29255 \u22320 \u22336 \u65288 \u39640 \u28165 \u32972 \u26223 \u22270  - Hero\u21306 \u20840 \u23631 \u32972 \u26223 \u65289 \
+    // \uc0\u39134 \u26426 \u33329 \u32972 \u26223 \u22270 \
+    const planeBgImg = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&h=900&fit=crop";\
+    // \uc0\u21654 \u21857 \u39302 \u32972 \u26223 \u22270 \
+    const cafeBgImg = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&h=900&fit=crop";\
+    // \uc0\u20849 \u20139 \u21150 \u20844 \u32972 \u26223 \u22270 \
+    const coworkBgImg = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop";\
+\
+    const scenesData = \{\
+        plane: \{\
+            name: "\uc0\u9992 \u65039  \u39134 \u26426 \u33329 \u20869 ",\
+            bgImage: planeBgImg,\
+            hero: \{\
+                badge: "\uc0\u19975 \u31859 \u39640 \u31354  \'b7 \u28145 \u24230 \u20241 \u24687 \u26041 \u26696 ",\
+                title: "\uc0\u35753 \u24341 \u25806 \u22768 \u28040 \u22833 \u65292 <br>\u21482 \u21097 \u28789 \u24863 \u19982 \u19987 \u27880 ",\
+                desc: "QuietFlow AI \uc0\u23454 \u26102 \u28040 \u22122 \u65292 \u36328 \u27915 \u39134 \u34892 \u20063 \u33021 \u28145 \u24230 \u20837 \u30496 \u12290 50h\u32493 \u33322 \u65292 \u20174 \u19978 \u28023 \u21040 \u32445 \u32422 \u19981 \u26029 \u30005 \u12290 ",\
+                sceneTag: "\uc0\u33258 \u36866 \u24212 \u33322 \u31354 \u38477 \u22122 \u27169 \u24335  \'b7 \u24050 \u36830 \u25509 "\
+            \},\
+            pain: [\
+                \{ icon: "\uc0\u55357 \u56586 ", title: "\u24341 \u25806 \u20302 \u39057 \u36720 \u40483 ", desc: "\u25345 \u32493 12\u23567 \u26102 \u30340 \u20302 \u39057 \u22122 \u38899 \u65292 \u35753 \u20154 \u26080 \u27861 \u20837 \u30561 \u65292 \u25269 \u36798 \u21518 \u31934 \u21147 \u32791 \u23613 " \},\
+                \{ icon: "\uc0\u55357 \u56438 ", title: "\u23156 \u20799 \u21741 \u38393 \u19982 \u24191 \u25773 ", desc: "\u26080 \u27861 \u39044 \u27979 \u30340 \u29615 \u22659 \u24178 \u25200 \u65292 \u21018 \u20837 \u30561 \u23601 \u34987 \u24778 \u37266 \u65292 \u20241 \u24687 \u36136 \u37327 \u24402 \u38646 " \},\
+                \{ icon: "\uc0\u55357 \u56884 ", title: "\u26102 \u24046 \u19982 \u28145 \u24230 \u30130 \u21171 ", desc: "\u38271 \u36884 \u39134 \u34892 \u21518 \u29983 \u29289 \u38047 \u32010 \u20081 \u65292 \u33853 \u22320 \u23601 \u35201 \u24320 \u20250 \u65292 \u24613 \u38656 \u39640 \u25928 \u24674 \u22797 " \}\
+            ],\
+            solution: "QuietFlow \uc0\u37319 \u29992 \u33322 \u31354 \u32423 AI\u38477 \u22122 \u31639 \u27861 \u65292 \u38024 \u23545 \u39134 \u26426 \u24341 \u25806 0-500Hz\u20302 \u39057 \u22122 \u38899 \u28145 \u24230 \u28040 \u38500 \u65292 \u21516 \u26102 \u26234 \u33021 \u20445 \u30041 \u23433 \u20840 \u24191 \u25773 \u25552 \u31034 \u12290 \u20869 \u32622 \u12300 \u36328 \u27915 \u20901 \u24819 \u12301 \u35838 \u31243 \u65292 \u36890 \u36807 \u24341 \u23548 \u24335 \u21628 \u21560 \u19982 \u33041 \u27874 \u21516 \u27493 \u65292 10\u20998 \u38047 \u24555 \u36895 \u20837 \u30496 \u65292 \u37266 \u26469 \u31070 \u28165 \u27668 \u29245 \u12290 ",\
+            features: [\
+                \{ icon: "\uc0\u55356 \u57255 \u9889 ", title: "\u33322 \u31354 \u38477 \u22122 \u27169 \u24335 ", desc: "\u38024 \u23545 \u24341 \u25806 \u20302 \u39057 \u22122 \u38899 \u28145 \u24230 \u28040 \u38500 \u65292 \u38477 \u22122 \u28145 \u24230 -42dB" \},\
+                \{ icon: "\uc0\u55358 \u56792 ", title: "\u36328 \u27915 \u20901 \u24819 \u24341 \u23548 ", desc: "10\u20998 \u38047 \u24555 \u36895 \u20837 \u30496  + \u26102 \u24046 \u35843 \u33410 \u20901 \u24819 \u65292 \u33853 \u22320 \u21363 \u29992 " \},\
+                \{ icon: "\uc0\u55357 \u56587 ", title: "50h\u36229 \u38271 \u32493 \u33322 ", desc: "\u19978 \u28023 \u8594 \u32445 \u32422 \u24448 \u36820  + \u36716 \u26426 \u20505 \u26426 \u65292 \u20840 \u31243 \u26080 \u38656 \u20805 \u30005 " \}\
+            ],\
+            useCase: \{\
+                icon: "\uc0\u9992 \u65039 ",\
+                title: "\uc0\u19975 \u31859 \u39640 \u31354 \u65292 \u20063 \u33021 \u23433 \u28982 \u20837 \u30561 ",\
+                detail1: "\uc0\u24403 \u20320 \u22352 \u22312 \u32463 \u27982 \u33329 \u25110 \u21830 \u21153 \u33329 \u65292 \u24341 \u25806 \u25345 \u32493 \u30340 \u20302 \u39057 \u36720 \u40483 \u20687 \u32972 \u26223 \u22681 \u19968 \u26679 \u26080 \u27861 \u25670 \u33073 \u12290 QuietFlow \u30340 \u12300 \u33322 \u31354 \u27169 \u24335 \u12301 \u20250 \u33258 \u21160 \u35782 \u21035 \u33329 \u20869 \u21387 \u21147 \u21464 \u21270 \u21644 \u22122 \u38899 \u39057 \u35889 \u65292 \u21160 \u24577 \u35843 \u25972 \u38477 \u22122 \u26354 \u32447 \'97\'97\u19981 \u26159 \u31616 \u21333 \u30340 \u19968 \u20992 \u20999 \u65292 \u32780 \u26159 \u20687 \u20026 \u20320 \u30340 \u32819 \u26421 \u23450 \u21046 \u20102 \u19968 \u20010 \u12300 \u38745 \u38899 \u33329 \u12301 \u12290 ",\
+                detail2: "\uc0\u25140 \u19978 \u32819 \u26426 \u30340 \u37027 \u19968 \u21051 \u65292 \u24341 \u25806 \u22768 \u20250 \u20174 \u12300 \u36720 \u38534 \u38534 \u12301 \u21464 \u25104 \u20960 \u20046 \u19981 \u21487 \u38395 \u30340 \u24494 \u24369 \u27668 \u27969 \u22768 \u12290 \u36825 \u26102 \u20505 \u65292 \u36731 \u28857  AI \u20901 \u24819 \u38190 \u65292 \u19968 \u20010 \u28201 \u26580 \u30340 \u22768 \u38899 \u20250 \u24341 \u23548 \u20320 \u36827 \u34892  4-7-8 \u21628 \u21560 \u27861 \u65306 \u21560 \u27668 4\u31186 \u65292 \u23631 \u24687 7\u31186 \u65292 \u21628 \u27668 8\u31186 \u12290 ",\
+                detail3: "\uc0\u19981 \u21040 10\u20998 \u38047 \u65292 \u20320 \u30340 \u24515 \u29575 \u20250 \u36880 \u28176 \u25918 \u32531 \u65292 \u22823 \u33041 \u36827 \u20837 \u20241 \u24687 \u29366 \u24577 \u12290 \u21363 \u20351 \u39134 \u26426 \u36935 \u21040 \u27668 \u27969 \u39072 \u31800 \u65292 QuietFlow \u30340 \u30636 \u24577 \u21709 \u24212 \u25216 \u26415 \u20063 \u33021 \u30636 \u38388 \u22686 \u24378 \u38477 \u22122 \u65292 \u19981 \u35753 \u20219 \u20309 \u31361 \u21457 \u22122 \u38899 \u25171 \u26029 \u20320 \u30340 \u30561 \u30496 \u12290 ",\
+                result: "\uc0\u37266 \u26469 \u26102 \u65292 \u39134 \u26426 \u27491 \u22312 \u38477 \u33853 \u12290 \u20320 \u25688 \u19979 \u32819 \u26426 \u65292 \u31934 \u31070 \u39281 \u28385 \u65292 \u32780 \u21608 \u22260 \u30340 \u20056 \u23458 \u36824 \u22312 \u25545 \u30528 \u30130 \u24811 \u30340 \u30524 \u30555 \u12290 \u36825 \u23601 \u26159  QuietFlow \u24102 \u26469 \u30340 \u12300 \u33322 \u31354 \u32423 \u20241 \u24687 \u20307 \u39564 \u12301 \u12290 "\
+            \}\
+        \},\
+        cafe: \{\
+            name: "\uc0\u9749  \u21654 \u21857 \u39302 ",\
+            bgImage: cafeBgImg,\
+            hero: \{\
+                badge: "\uc0\u28789 \u24863 \u25454 \u28857  \'b7 \u27785 \u28024 \u21019 \u20316 \u26041 \u26696 ",\
+                title: "\uc0\u21654 \u21857 \u26426 \u19982 \u20132 \u35848 \u22768 \u65292 <br>\u21270 \u20316 \u20320 \u30340 \u30333 \u22122 \u38899 ",\
+                desc: "\uc0\u26234 \u33021 \u28388 \u38500 \u20154 \u22768 \u24178 \u25200 \u65292 \u20445 \u30041 \u29615 \u22659 \u38901 \u24459 \u65292 \u35753 \u21019 \u24847 \u19981 \u26029 \u32447 \u12290 ",\
+                sceneTag: "\uc0\u28789 \u24863 \u27169 \u24335  \'b7 \u24515 \u27969 \u24050 \u23601 \u32490 "\
+            \},\
+            pain: [\
+                \{ icon: "\uc0\u55357 \u56803 \u65039 ", title: "\u22024 \u26434 \u20154 \u22768 \u24178 \u25200 ", desc: "\u37051 \u26700 \u30340 \u32842 \u22825 \u12289 \u30005 \u35805 \u22768 \u19981 \u26029 \u25171 \u26029 \u20320 \u30340 \u24605 \u36335 \u65292 \u24515 \u27969 \u38590 \u20197 \u24314 \u31435 " \},\
+                \{ icon: "\uc0\u9749 ", title: "\u21654 \u21857 \u26426 \u39640 \u39057 \u22122 \u38899 ", desc: "\u33976 \u27773 \u26834 \u12289 \u30952 \u35910 \u26426 \u12289 \u26479 \u30879 \u30896 \u25758 \u65292 \u39640 \u39057 \u22122 \u38899 \u21453 \u22797 \u21050 \u28608 \u21548 \u35273 " \},\
+                \{ icon: "\uc0\u55356 \u57269 ", title: "\u32972 \u26223 \u38899 \u20048 \u26434 \u20081 ", desc: "\u21654 \u21857 \u39302 \u30340 BGM\u26080 \u27861 \u25511 \u21046 \u65292 \u19982 \u20320 \u27491 \u22312 \u21548 \u30340 \u38899 \u20048 /\u25773 \u23458 \u20914 \u31361 " \}\
+            ],\
+            solution: "QuietFlow \uc0\u30340 \u12300 \u28789 \u24863 \u27169 \u24335 \u12301 \u25645 \u36733 AI\u20154 \u22768 \u20998 \u31163 \u25216 \u26415 \u65292 \u26234 \u33021 \u35782 \u21035 \u24182 \u28388 \u38500 \u23545 \u35805 \u24178 \u25200 \u65292 \u21516 \u26102 \u23558 \u21654 \u21857 \u26426 \u22768 \u12289 \u26479 \u30879 \u22768 \u36716 \u21270 \u20026 \u33258 \u28982 \u30333 \u22122 \u38899 \u12290 \u37197 \u21512 \u12300 \u24515 \u27969 \u20914 \u21050 \u12301 \u20901 \u24819 \u24341 \u23548 \u65292 2\u20998 \u38047 \u36827 \u20837 \u28145 \u24230 \u19987 \u27880 \u29366 \u24577 \u65292 \u21019 \u20316 \u25928 \u29575 \u25552 \u21319 2\u20493 \u12290 ",\
+            features: [\
+                \{ icon: "\uc0\u55356 \u57243 \u65039 ", title: "\u26234 \u33021 \u20154 \u22768 \u36807 \u28388 ", desc: "\u31934 \u20934 \u35782 \u21035 \u24182 \u34928 \u20943 \u37051 \u26700 \u23545 \u35805 \u65292 \u20445 \u30041 \u38899 \u20048 \u19982 \u30333 \u22122 \u38899 " \},\
+                \{ icon: "\uc0\u55356 \u57098 ", title: "\u29615 \u22659 \u30333 \u22122 \u38899 \u34701 \u21512 ", desc: "\u21654 \u21857 \u26426 \u22768 \u8594 \u33258 \u28982 \u30333 \u22122 \u38899 \u65292 \u25104 \u20026 \u20320 \u30340 \u19987 \u27880 \u32972 \u26223 " \},\
+                \{ icon: "\uc0\u9889 ", title: "\u24555 \u36895 \u24515 \u27969 \u21551 \u21160 ", desc: "2\u20998 \u38047 \u24341 \u23548 \u24335 \u20901 \u24819 \u65292 \u19968 \u38190 \u36827 \u20837 \u21019 \u20316 \u29366 \u24577 " \}\
+            ],\
+            useCase: \{\
+                icon: "\uc0\u9749 ",\
+                title: "\uc0\u21927 \u22179 \u20043 \u20013 \u65292 \u28789 \u24863 \u20174 \u26410 \u22914 \u27492 \u28165 \u26224 ",\
+                detail1: "\uc0\u20320 \u28857 \u20102 \u19968 \u26479 \u25343 \u38081 \u65292 \u25214 \u20102 \u20010 \u38752 \u31383 \u30340 \u20301 \u32622 \u65292 \u25171 \u24320 \u31508 \u35760 \u26412 \u20934 \u22791 \u20889 \u26041 \u26696 \u12290 \u20294 \u38548 \u22721 \u26700 \u22312 \u32842 \u39033 \u30446 \u65292 \u21543 \u21488 \u21654 \u21857 \u26426 \u22312 \u22070 \u22070 \u20316 \u21709 \u65292 \u20320 \u30340 \u27880 \u24847 \u21147 \u20687 \u34987 \u25749 \u25104 \u20102 \u30862 \u29255 \u12290 ",\
+                detail2: "\uc0\u25140 \u19978  QuietFlow\u65292 \u36731 \u35302 \u24320 \u21551 \u12300 \u28789 \u24863 \u27169 \u24335 \u12301 \u12290 \u19968 \u30636 \u38388 \u65292 \u20154 \u22768 \u20687 \u34987 \u35843 \u20302 \u20102 \u38899 \u37327 \u38190 \'97\'97\u20320 \u33021 \u30475 \u21040 \u20182 \u20204 \u22312 \u35828 \u35805 \u65292 \u20294 \u22768 \u38899 \u21464 \u25104 \u20102 \u27169 \u31946 \u30340 \u32972 \u26223 \u12290 \u21654 \u21857 \u26426 \u30340 \u33976 \u27773 \u22768 \u21453 \u32780 \u34987  AI \u36716 \u21270 \u25104 \u20102 \u31867 \u20284 \u28023 \u28010 \u30340 \u30333 \u22122 \u38899 \u12290 ",\
+                detail3: "\uc0\u20320 \u25171 \u24320  AI \u20901 \u24819 \u65292 \u36873 \u25321 \u12300 \u24515 \u27969 \u20914 \u21050 \u12301 \u12290 \u19968 \u20010 \u24179 \u38745 \u30340 \u22768 \u38899 \u24341 \u23548 \u20320 \u36827 \u34892  2 \u20998 \u38047 \u30340 \u19987 \u27880 \u21628 \u21560 \u35757 \u32451 \u65292 \u25226 \u20320 \u30340 \u27880 \u24847 \u21147 \u38170 \u23450 \u22312 \u24403 \u19979 \u12290 ",\
+                detail4: "\uc0\u20877 \u27425 \u30529 \u24320 \u30524 \u26102 \u65292 \u20320 \u21457 \u29616 \u33258 \u24049 \u30340 \u25163 \u25351 \u24050 \u32463 \u22312 \u38190 \u30424 \u19978 \u39134 \u36895 \u25970 \u20987 \u12290 \u37027 \u20123 \u21407 \u26412 \u35753 \u20320 \u28902 \u36481 \u30340 \u29615 \u22659 \u22768 \u65292 \u29616 \u22312 \u21453 \u32780 \u25104 \u20102 \u21019 \u20316 \u30340 \u32972 \u26223 \u24459 \u21160 \u12290 \u19968 \u26479 \u21654 \u21857 \u30340 \u26102 \u38388 \u65292 \u20320 \u23436 \u25104 \u20102 \u24179 \u26102 \u38656 \u35201 \u19968 \u19978 \u21320 \u30340 \u24037 \u20316 \u37327 \u12290 ",\
+                result: "\uc0\u36825 \u23601 \u26159  QuietFlow \u30340 \u39764 \u21147 \'97\'97\u19981 \u26159 \u38548 \u32477 \u19990 \u30028 \u65292 \u32780 \u26159 \u24110 \u20320 \u36873 \u25321 \u12300 \u21548 \u20160 \u20040 \u12301 \u12290 \u35753 \u21927 \u22179 \u21464 \u25104 \u30333 \u22122 \u38899 \u65292 \u35753 \u28789 \u24863 \u33258 \u28982 \u27969 \u28108 \u12290 "\
+            \}\
+        \},\
+        cowork: \{\
+            name: "\uc0\u55357 \u56508  \u20849 \u20139 \u21150 \u20844 ",\
+            bgImage: coworkBgImg,\
+            hero: \{\
+                badge: "\uc0\u39640 \u25928 \u25112 \u22330  \'b7 \u26080 \u30028 \u19987 \u27880 \u26041 \u26696 ",\
+                title: "\uc0\u20849 \u20139 \u21150 \u20844 \u19981 \u20849 \u20139 \u22122 \u38899 \u65292 <br>\u19987 \u27880 \u21147 \u30001 \u20320 \u25484 \u25511 ",\
+                desc: "\uc0\u38190 \u30424 \u22768 \u12289 \u30005 \u35805 \u20250 \u12289 \u24320 \u20851 \u38376 \u22768  \'97 \u19968 \u38190 \u36827 \u20837 \u28145 \u24230 \u24037 \u20316 \u27969 \u12290 ",\
+                sceneTag: "\uc0\u28145 \u24230 \u19987 \u27880  \'b7 \u24378 \u38477 \u22122 \u24050 \u28608 \u27963 "\
+            \},\
+            pain: [\
+                \{ icon: "\uc0\u9000 \u65039 ", title: "\u26426 \u26800 \u38190 \u30424 \u19982 \u40736 \u26631 ", desc: "\u38738 \u36724 \u38190 \u30424 \u30340 \u28165 \u33030 \u25970 \u20987 \u22768 \u12289 \u40736 \u26631 \u39640 \u39057 \u28857 \u20987 \u65292 \u25345 \u32493 \u21050 \u28608 \u31070 \u32463 " \},\
+                \{ icon: "\uc0\u55357 \u56542 ", title: "\u24320 \u25918 \u24335 \u30005 \u35805 \u20250 \u35758 ", desc: "\u34987 \u36843 \u26049 \u21548 \u21516 \u20107 \u30340 \u23458 \u25143 \u30005 \u35805 \u65292 \u38544 \u31169 \u19982 \u27880 \u24847 \u21147 \u21452 \u37325 \u24178 \u25200 " \},\
+                \{ icon: "\uc0\u55357 \u57002 ", title: "\u39057 \u32321 \u36208 \u21160 \u19982 \u24320 \u20851 \u38376 ", desc: "\u33050 \u27493 \u22768 \u12289 \u38376 \u25226 \u25163 \u22768 \u12289 \u26885 \u23376 \u25302 \u21160 \u22768 \u65292 \u27880 \u24847 \u21147 \u34987 \u21453 \u22797 \u25171 \u26029 " \}\
+            ],\
+            solution: "QuietFlow \uc0\u24378 \u38477 \u22122 \u27169 \u24335 \u25645 \u36733 \u30636 \u24577 \u22122 \u38899 \u25233 \u21046 \u25216 \u26415 \u65292 \u19968 \u38190 \u23631 \u34109 \u26426 \u26800 \u38190 \u30424 \u19982 \u33050 \u27493 \u22768 \u12290 \u20869 \u32622 \u12300 \u30058 \u33540 \u24037 \u20316 \u27861 \u12301 \u20901 \u24819 \u24341 \u23548 \u65292 25\u20998 \u38047 \u28145 \u24230 \u19987 \u27880  + 5\u20998 \u38047 \u27491 \u24565 \u20241 \u24687 \u65292 \u23436 \u32654 \u21305 \u37197 \u20320 \u30340 \u24037 \u20316 \u33410 \u22863 \u12290 ",\
+            features: [\
+                \{ icon: "\uc0\u55357 \u57057 \u65039 ", title: "\u24378 \u38477 \u22122 \u27169 \u24335 ", desc: "\u32508 \u21512 \u38477 \u22122 \u28145 \u24230 -42dB\u65292 \u35206 \u30422 20Hz-20kHz" \},\
+                \{ icon: "\uc0\u55356 \u57157 ", title: "\u30058 \u33540 \u20901 \u24819 \u32852 \u21160 ", desc: "25\u20998 \u38047 \u19987 \u27880 \u24037 \u20316  + 5\u20998 \u38047 \u20901 \u24819 \u20241 \u24687 \u65292 \u25928 \u29575 \u32763 \u20493 " \},\
+                \{ icon: "\uc0\u55357 \u56583 ", title: "\u30636 \u24577 \u22122 \u38899 \u25233 \u21046 ", desc: "\u27627 \u31186 \u32423 \u21709 \u24212 \u65292 \u28040 \u38500 \u38190 \u30424 \u12289 \u20851 \u38376 \u31561 \u31361 \u21457 \u22122 \u38899 " \}\
+            ],\
+            useCase: \{\
+                icon: "\uc0\u55357 \u56508 ",\
+                title: "\uc0\u24320 \u25918 \u31354 \u38388 \u65292 \u20063 \u33021 \u25317 \u26377 \u31169 \u20154 \u21150 \u20844 \u23460 ",\
+                detail1: "\uc0\u20320 \u22312 \u20849 \u20139 \u21150 \u20844 \u21306 \u30340 \u24037 \u20301 \u19978 \u65292 \u24038 \u36793 \u22312 \u24320 \u30005 \u35805 \u20250 \u65292 \u21491 \u36793 \u22312 \u25970 \u20195 \u30721 \u65292 \u36523 \u21518 \u26377 \u20154 \u36208 \u26469 \u36208 \u21435 \u12290 \u20320 \u25140 \u30528 \u26222 \u36890 \u38477 \u22122 \u32819 \u26426 \u65292 \u20294 \u38190 \u30424 \u22768 \u20381 \u28982 \u31359 \u36879 \u36827 \u26469 \u65292 \u35753 \u20320 \u26080 \u27861 \u19987 \u27880 \u12290 ",\
+                detail2: "\uc0\u25442 \u19978  QuietFlow\u65292 \u20999 \u25442 \u21040 \u12300 \u24378 \u38477 \u22122 \u27169 \u24335 \u12301 \u12290 \u19968 \u30636 \u38388 \u65292 \u25972 \u20010 \u31354 \u38388 \u23433 \u38745 \u20102 \'97\'97\u19981 \u26159 \u29289 \u29702 \u19978 \u30340 \u23433 \u38745 \u65292 \u32780 \u26159 \u20320 \u30340 \u21548 \u35273 \u19990 \u30028 \u34987 \u37325 \u26032 \u23450 \u20041 \u20102 \u12290 \u26426 \u26800 \u38190 \u30424 \u30340 \u21652 \u21970 \u22768 \u21464 \u25104 \u20102 \u36965 \u36828 \u30340 \u12289 \u20960 \u20046 \u21548 \u19981 \u35265 \u30340 \u24494 \u24369 \u22238 \u21709 \u12290 ",\
+                detail3: "\uc0\u24320 \u21551 \u12300 \u30058 \u33540 \u24037 \u20316 \u27861 \u12301 \u32852 \u21160 \u27169 \u24335 \u12290 AI \u20250 \u20026 \u20320 \u35774 \u23450  25 \u20998 \u38047 \u19987 \u27880 \u20498 \u35745 \u26102 \u65292 \u26399 \u38388 \u33258 \u21160 \u23631 \u34109 \u25152 \u26377 \u24178 \u25200 \u22122 \u38899 \u12290 \u27599 \u38548  5 \u20998 \u38047 \u65292 \u36731 \u26580 \u30340 \u20901 \u24819 \u25552 \u31034 \u20250 \u24341 \u23548 \u20320 \u20570  3 \u27425 \u28145 \u21628 \u21560 \u65292 \u35753 \u22823 \u33041 \u30701 \u26242 \u20241 \u24687 \u12290 ",\
+                detail4: "4 \uc0\u20010 \u30058 \u33540 \u38047 \u21518 \u65292 \u20320 \u23436 \u25104 \u20102 \u28145 \u24230 \u24037 \u20316 \u12290 \u25688 \u19979 \u32819 \u26426 \u65292 \u21457 \u29616 \u21516 \u20107 \u27491 \u22312 \u35752 \u35770 \u21320 \u39277 \u21507 \u20160 \u20040 \u65292 \u32780 \u20320 \u23436 \u20840 \u27809 \u34987 \u25171 \u25200 \u36807 \u12290 \u26049 \u36793 \u30340 \u21516 \u20107 \u22909 \u22855 \u22320 \u38382 \u65306 '\u20320 \u21018 \u25165 \u26159 \u19981 \u26159 \u36827 \u20837 \u21478 \u19968 \u20010 \u19990 \u30028 \u20102 \u65311 '",\
+                result: "QuietFlow \uc0\u19981 \u26159 \u24110 \u20320 \u36867 \u36991 \u29615 \u22659 \u65292 \u32780 \u26159 \u24110 \u20320 \u21019 \u36896 \u23646 \u20110 \u33258 \u24049 \u30340 \u12300 \u19987 \u27880 \u32467 \u30028 \u12301 \u12290 \u22312 \u20219 \u20309 \u24320 \u25918 \u31354 \u38388 \u65292 \u20320 \u37117 \u33021 \u25317 \u26377 \u31169 \u20154 \u21150 \u20844 \u23460 \u33324 \u30340 \u27785 \u28024 \u24863 \u12290 "\
+            \}\
+        \}\
+    \};\
+\
+    let currentScene = "plane";\
+\
+    // \uc0\u28210 \u26579 \u25972 \u20010 \u39029 \u38754 \
+    function renderScene(sceneKey) \{\
+        const data = scenesData[sceneKey];\
+        if (!data) return;\
+\
+        const app = document.getElementById("app");\
+        if (!app) return;\
+\
+        const html = `\
+            <!-- 1. HERO \uc0\u27169 \u22359  - \u20840 \u23631 \u32972 \u26223 \u22270  -->\
+            <section class="hero">\
+                <div class="hero-bg" style="background-image: url('$\{data.bgImage\}');"></div>\
+                <div class="hero-overlay"></div>\
+                <div class="hero-content">\
+                    <div class="hero-badge">$\{data.hero.badge\}</div>\
+                    <h1>$\{data.hero.title\}</h1>\
+                    <p>$\{data.hero.desc\}</p>\
+                    <div class="scene-tag">\
+                        <span>\uc0\u55356 \u57255  \u24403 \u21069 \u22330 \u26223 \u65306 $\{data.name\}</span>\
+                        <span>\'b7</span>\
+                        <span>\uc0\u10024  $\{data.hero.sceneTag\}</span>\
+                    </div>\
+                    <button class="cta-button" onclick="alert('\uc0\u31435 \u21363 \u39044 \u35746  QuietFlow\u65292 \u26089 \u40479 \u20215  \\\\$149 \u8594  \u35775 \u38382  quietflow.ai')">\u31435 \u21363 \u39044 \u35746  \u8594 </button>\
+                </div>\
+            </section>\
+\
+            <!-- 2. PAIN POINT \uc0\u30171 \u28857 \u27169 \u22359  -->\
+            <div class="section-title">\uc0\u55357 \u56875  \u20320 \u30340 \u22122 \u38899 \u22256 \u22659 </div>\
+            <div class="pain-grid">\
+                $\{data.pain.map(p => `\
+                    <div class="pain-card">\
+                        <div class="pain-icon">$\{p.icon\}</div>\
+                        <h4>$\{p.title\}</h4>\
+                        <p>$\{p.desc\}</p>\
+                    </div>\
+                `).join('')\}\
+            </div>\
+\
+            <!-- 3. SOLUTION \uc0\u35299 \u20915 \u26041 \u26696  -->\
+            <div class="solution-box">\
+                <div class="solution-highlight">\uc0\u55356 \u57263  QuietFlow \u22914 \u20309 \u35299 \u20915 \u65311 </div>\
+                <div class="solution-desc">$\{data.solution\}</div>\
+            </div>\
+\
+            <!-- 4. FEATURES \uc0\u26680 \u24515 \u21334 \u28857  -->\
+            <div class="section-title">\uc0\u9889  \u30828 \u26680 \u23454 \u21147 </div>\
+            <div class="features">\
+                $\{data.features.map(f => `\
+                    <div class="feature-card">\
+                        <div class="feature-icon">$\{f.icon\}</div>\
+                        <h3>$\{f.title\}</h3>\
+                        <p>$\{f.desc\}</p>\
+                    </div>\
+                `).join('')\}\
+            </div>\
+\
+            <!-- 5. USE CASES \uc0\u24378 \u21270 \u22330 \u26223  -->\
+            <div class="usecase-single">\
+                <div class="scene-icon">$\{data.useCase.icon\}</div>\
+                <h2>$\{data.useCase.title\}</h2>\
+                <div class="usecase-detail-rich">\
+                    <p>$\{data.useCase.detail1\}</p>\
+                    <p>$\{data.useCase.detail2\}</p>\
+                    <p>$\{data.useCase.detail3\}</p>\
+                    $\{data.useCase.detail4 ? `<p>$\{data.useCase.detail4\}</p>` : ''\}\
+                    <p><span class="highlight">\uc0\u10024  $\{data.useCase.result\}</span></p>\
+                </div>\
+            </div>\
+\
+            <!-- 6. CTA \uc0\u34892 \u21160 \u21484 \u21796  -->\
+            <div class="cta-section">\
+                <h2>\uc0\u55357 \u56960  \u23433 \u38745 \u19990 \u30028 \u65292 \u20174  QuietFlow \u24320 \u22987 </h2>\
+                <p>\uc0\u21069 1000\u21517 \u39044 \u35746 \u29992 \u25143 \u20139 \u26089 \u40479 \u20215  $149\u65288 \u21407 \u20215  $249\u65289 </p>\
+                <button class="cta-big" onclick="alert('\uc0\u21069 \u24448 \u29420 \u31435 \u31449 \u65306 quietflow.ai/pre-order')">\u31435 \u21363 \u39044 \u35746  \u8594 </button>\
+                <p style="margin-top: 24px; font-size: 0.8rem;">30\uc0\u22825 \u26080 \u29702 \u30001 \u36864 \u36135  \'b7 2\u24180 \u20445 \u20462  \'b7 \u20840 \u29699 \u39034 \u20016 \u21253 \u37038 </p>\
+            </div>\
+        `;\
+\
+        app.innerHTML = html;\
+    \}\
+\
+    // \uc0\u20999 \u25442 \u22330 \u26223 \u20989 \u25968 \
+    function switchScene(sceneKey) \{\
+        if (!scenesData[sceneKey]) return;\
+        currentScene = sceneKey;\
+        renderScene(sceneKey);\
+        // \uc0\u26356 \u26032 \u39030 \u37096 \u25353 \u38062 \u28608 \u27963 \u26679 \u24335 \
+        document.querySelectorAll(".scene-btn").forEach(btn => \{\
+            if (btn.getAttribute("data-scene") === sceneKey) \{\
+                btn.classList.add("active");\
+            \} else \{\
+                btn.classList.remove("active");\
+            \}\
+        \});\
+        // \uc0\u28378 \u21160 \u21040 \u39030 \u37096 \
+        window.scrollTo(\{ top: 0, behavior: 'smooth' \});\
+    \}\
+\
+    // \uc0\u32465 \u23450 \u39030 \u37096 \u25353 \u38062 \u20107 \u20214 \
+    function bindTopButtons() \{\
+        document.querySelectorAll(".scene-btn").forEach(btn => \{\
+            btn.addEventListener("click", (e) => \{\
+                const scene = btn.getAttribute("data-scene");\
+                if (scene) switchScene(scene);\
+            \});\
+        \});\
+    \}\
+\
+    // \uc0\u21021 \u22987 \u21270 \u28210 \u26579 \
+    renderScene("plane");\
+    bindTopButtons();\
+</script>\
+</body>\
+</html>}
