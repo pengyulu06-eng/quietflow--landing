@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>QuietFlow · AI智能降噪助眠耳机</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #0A0C12;
+            color: #EDEEF2;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 场景切换按钮栏 */
+        .scene-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 12, 18, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .scene-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #EDEEF2;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            backdrop-filter: blur(4px);
+        }
+
+        .scene-btn.active {
+            background: #6C5CE7;
+            border-color: #6C5CE7;
+            box-shadow: 0 4px 14px rgba(108, 92, 231, 0.3);
+        }
+
+        .scene-btn:hover {
+            background: rgba(108, 92, 231, 0.7);
+            border-color: #6C5CE7;
+        }
+
+        /* ========== HERO 模块 - 全屏背景图 ========== */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 32px;
+            margin: 8px 0 48px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.4s ease-in-out;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.25);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #C4B5FD;
+            margin-bottom: 24px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #E2E8F0;
+            margin-bottom: 32px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .scene-tag {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0 16px;
+            font-size: 0.9rem;
+            color: #C4B5FD;
+        }
+
+        .cta-button {
+            background: #6C5CE7;
+            border: none;
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #5b4bc4;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            letter-spacing: -0.01em;
+        }
+
+        .pain-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+        .pain-card {
+            background: #13161F;
+            border-radius: 24px;
+            padding: 28px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            border-left: 4px solid #FF6B6B;
+            transition: transform 0.2s;
+        }
+        .pain-card:hover { transform: translateY(-4px); }
+        .pain-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .pain-card h4 { font-size: 1.3rem; margin-bottom: 8px; }
+        .pain-card p { color: #A9AFCC; font-size: 0.9rem; line-height: 1.5; }
+
+        .solution-box {
+            background: linear-gradient(145deg, #13161F, #0F111A);
+            border-radius: 48px;
+            padding: 48px 40px;
+            margin-bottom: 64px;
+            border: 1px solid #2A2F3F;
+        }
+        .solution-highlight {
+            font-size: 1.2rem;
+            color: #A78BFA;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .solution-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #E2E8F0;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 64px;
+        }
+        .feature-card {
+            background: #13161F;
+            border-radius: 32px;
+            padding: 32px 24px;
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            border: 1px solid #2A2F3F;
+            transition: all 0.2s;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-color: #6C5CE7; }
+        .feature-icon { font-size: 2.8rem; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+        .feature-card p { color: #A9AFCC; font-size: 0.95rem; }
+
+        .usecase-single {
+            background: linear-gradient(145deg, #6C5CE7, #4A3BB5);
+            border-radius: 48px;
+            padding: 48px 40px;
+            margin-bottom: 64px;
+            text-align: center;
+        }
+        .usecase-single h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .usecase-single .scene-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .usecase-detail-rich {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: left;
+            background: rgba(255,255,255,0.08);
+            border-radius: 32px;
+            padding: 36px;
+            margin-top: 28px;
+            backdrop-filter: blur(4px);
+        }
+        .usecase-detail-rich p {
+            margin: 18px 0;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .usecase-detail-rich .highlight {
+            color: #FFD966;
+            font-weight: 600;
+        }
+        .earphone-mention {
+            background: rgba(108,92,231,0.2);
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #C4B5FD;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #6C5CE7 0%, #4A3BB5 100%);
+            border-radius: 48px;
+            padding: 64px 32px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .cta-section h2 { font-size: 2rem; margin-bottom: 16px; }
+        .cta-section p { margin-bottom: 32px; opacity: 0.9; }
+        .cta-big {
+            background: white;
+            color: #6C5CE7;
+            padding: 16px 48px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .cta-big:hover { transform: scale(1.02); }
+
+        footer {
+            text-align: center;
+            padding: 48px 0 32px;
+            border-top: 1px solid #262B38;
+            color: #7C83A3;
+        }
+
+        @media (max-width: 768px) {
+            .hero { min-height: 70vh; }
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .container { padding: 0 16px; }
+            .usecase-detail-rich { padding: 24px; }
+            .solution-box { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="scene-bar">
+        <button class="scene-btn active" data-scene="plane">✈️ 飞机舱内</button>
+        <button class="scene-btn" data-scene="cafe">☕ 咖啡馆</button>
+        <button class="scene-btn" data-scene="cowork">💼 共享办公</button>
+    </div>
+
+    <main id="app"></main>
+
+    <footer>
+        © 2026 QuietFlow · AI智能降噪助眠耳机 | 让世界安静，让灵感流动
+    </footer>
+</div>
+
+<script>
+    const planeBgImg = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&h=900&fit=crop";
+    const cafeBgImg = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&h=900&fit=crop";
+    const coworkBgImg = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop";
+
+    const scenesData = {
+        plane: {
+            name: "✈️ 飞机舱内",
+            bgImage: planeBgImg,
+            hero: {
+                badge: "万米高空 · 深度休息",  // 删掉了 🎧 和 "QuietFlow · 航空级降噪耳机"
+                title: "戴上 QuietFlow，<br>让引擎声消失",
+                desc: "专为万米高空设计。50h续航，跨洋飞行不断电",
+                sceneTag: "QuietFlow 自适应航空降噪模式"
+            },
+            pain: [
+                { icon: "🔊", title: "引擎低频轰鸣", desc: "普通耳机无法消除的低频噪音，QuietFlow 专门攻克" },
+                { icon: "👶", title: "婴儿哭闹与广播", desc: "QuietFlow 智能保留重要广播，滤除突发干扰" },
+                { icon: "😴", title: "时差与深度疲劳", desc: "QuietFlow 内置冥想引导，10分钟快速入眠" }
+            ],
+            solution: "QuietFlow 耳机采用航空级AI降噪算法，针对飞机引擎0-500Hz低频噪音深度消除。戴上它，引擎声从「轰隆隆」变成几乎不可闻的微弱气流声。同时智能保留安全广播提示。耳机内置的「跨洋冥想」课程，通过引导式呼吸与脑波同步，10分钟快速入眠。",
+            features: [
+                { icon: "🎧⚡", title: "航空降噪模式", desc: "QuietFlow 针对引擎低频噪音深度消除，降噪-42dB" },
+                { icon: "🧘", title: "跨洋冥想引导", desc: "耳机内置AI冥想教练，10分钟快速入眠" },
+                { icon: "🔋", title: "50h超长续航", desc: "QuietFlow 一次充电，上海→纽约往返无需充电" }
+            ],
+            useCase: {
+                icon: "✈️🎧",
+                title: "戴上 QuietFlow，万米高空也能安然入睡",
+                detail1: "当你坐在飞机上，引擎持续的低频轰鸣让普通降噪耳机束手无策。但 QuietFlow 不同——它的航空模式会自动识别舱内压力变化和噪音频谱，动态调整降噪曲线。",
+                detail2: "戴上 QuietFlow 耳机的那一刻，引擎声会从「轰隆隆」变成几乎不可闻的微弱气流声。轻点耳机上的 AI 冥想键，温柔的声音会引导你进行 4-7-8 呼吸法。",
+                detail3: "QuietFlow 的耳罩采用记忆海绵材质，即使长时间佩戴也舒适无压迫感。遇到气流颠簸时，耳机的瞬态响应技术瞬间增强降噪。",
+                result: "醒来时飞机正在降落。你摘下 QuietFlow，精神饱满。这就是这款AI降噪耳机带来的「航空级休息体验」。"
+            }
+        },
+        cafe: {
+            name: "☕ 咖啡馆",
+            bgImage: cafeBgImg,
+            hero: {
+                badge: "灵感据点 · 沉浸创作",  // 删掉了 🎧 和 "QuietFlow · 灵感创作耳机"
+                title: "戴上 QuietFlow，<br>咖啡馆变成你的私人书房",
+                desc: "智能滤除人声干扰，保留咖啡机白噪音，让创意不断线",
+                sceneTag: "QuietFlow 灵感模式 · 心流已就绪"
+            },
+            pain: [
+                { icon: "🗣️", title: "嘈杂人声干扰", desc: "普通耳机挡不住的对话声，QuietFlow 的AI人声分离技术解决" },
+                { icon: "☕", title: "咖啡机高频噪音", desc: "QuietFlow 将咖啡机声转化为自然白噪音" },
+                { icon: "🎵", title: "背景音乐杂乱", desc: "QuietFlow 让你只听想听的声音" }
+            ],
+            solution: "QuietFlow 耳机的「灵感模式」搭载AI人声分离技术，智能识别并滤除对话干扰，同时将咖啡机声、杯碟声转化为自然白噪音。戴上它，咖啡馆的喧嚣变成专注的背景音。配合耳机内置的「心流冲刺」冥想引导，2分钟进入深度创作状态。",
+            features: [
+                { icon: "🎛️", title: "智能人声过滤", desc: "QuietFlow 精准滤除邻桌对话，保留音乐与白噪音" },
+                { icon: "🌊", title: "环境白噪音融合", desc: "QuietFlow 将咖啡机声转化为专注白噪音" },
+                { icon: "⚡", title: "快速心流启动", desc: "耳机内置2分钟冥想，一键进入创作状态" }
+            ],
+            useCase: {
+                icon: "☕🎧",
+                title: "戴上 QuietFlow，喧嚣之中灵感从未如此清晰",
+                detail1: "你点了一杯拿铁准备写方案，但隔壁桌在聊项目，咖啡机在嘶嘶作响。戴上 QuietFlow 耳机，轻触开启「灵感模式」。",
+                detail2: "一瞬间，人声像被调低了音量键——你能看到他们在说话，但声音变成了模糊的背景。QuietFlow 的AI芯片实时分离人声与环境音。",
+                detail3: "咖啡机的蒸汽声被 QuietFlow 转化成了类似海浪的白噪音。你打开耳机的 AI 冥想，选择「心流冲刺」，2分钟的呼吸训练把你的注意力锚定在当下。",
+                detail4: "再次睁开眼，你的手指已经在键盘上飞速敲击。QuietFlow 的轻量化设计让你几乎感觉不到它的存在，只有纯粹的专注。",
+                result: "一杯咖啡的时间，你完成了平时一上午的工作量。这就是 QuietFlow 耳机的魔力——不是隔绝世界，而是帮你选择「听什么」。"
+            }
+        },
+        cowork: {
+            name: "💼 共享办公",
+            bgImage: coworkBgImg,
+            hero: {
+                badge: "高效战场 · 无界专注",  // 删掉了 🎧 和 "QuietFlow · 专注办公耳机"
+                title: "戴上 QuietFlow，<br>共享办公变成私人办公室",
+                desc: "一键屏蔽键盘声、电话会、脚步声，让你深度工作",
+                sceneTag: "QuietFlow 深度专注"
+            },
+            pain: [
+                { icon: "⌨️", title: "机械键盘与鼠标", desc: "普通耳机挡不住的清脆敲击声，QuietFlow 瞬态抑制解决" },
+                { icon: "📞", title: "开放式电话会议", desc: "QuietFlow 帮你屏蔽同事的客户电话" },
+                { icon: "🚪", title: "频繁走动与开关门", desc: "QuietFlow 让脚步声、关门声消失" }
+            ],
+            solution: "QuietFlow 耳机开启强降噪模式后，综合降噪深度达到-42dB。它的瞬态噪音抑制技术能毫秒级响应，消除键盘、关门等突发噪音。耳机内置「番茄工作法」冥想引导，25分钟深度专注 + 5分钟正念休息，完美匹配工作节奏。",
+            features: [
+                { icon: "🛡️", title: "强降噪模式", desc: "QuietFlow 综合降噪-42dB，覆盖20Hz-20kHz" },
+                { icon: "🍅", title: "番茄冥想联动", desc: "耳机内置25分钟专注+5分钟冥想休息" },
+                { icon: "🔇", title: "瞬态噪音抑制", desc: "QuietFlow 毫秒级消除键盘、关门等突发噪音" }
+            ],
+            useCase: {
+                icon: "💼🎧",
+                title: "戴上 QuietFlow，开放空间也能拥有私人办公室",
+                detail1: "你在共享办公区，左边在开电话会，右边在敲代码。戴着普通耳机，键盘声依然穿透进来。换上 QuietFlow，切换到「强降噪模式」。",
+                detail2: "一瞬间，整个空间安静了。QuietFlow 的8麦克风阵列实时采集环境噪音，AI芯片在毫秒内生成反向声波。机械键盘的咔嗒声变成了遥远的微弱回响。",
+                detail3: "开启耳机内置的「番茄工作法」联动模式。AI 会为你设定 25 分钟专注倒计时，期间自动屏蔽所有干扰噪音。每隔 5 分钟，轻柔的冥想提示引导你做深呼吸。",
+                detail4: "QuietFlow 的蛋白皮耳罩即使戴一整天也舒适不压耳。4 个番茄钟后，你完成了深度工作。",
+                result: "旁边的同事好奇地问：'你戴的什么耳机，怎么完全不受影响？' 你摘下 QuietFlow 说：'这款AI降噪耳机，让我在任何地方都有自己的办公室。'"
+            }
+        }
+    };
+
+    let currentScene = "plane";
+
+    function renderScene(sceneKey) {
+        const data = scenesData[sceneKey];
+        if (!data) return;
+
+        const app = document.getElementById("app");
+        if (!app) return;
+
+        const html = `
+            <section class="hero">
+                <div class="hero-bg" style="background-image: url('${data.bgImage}');"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-badge">${data.hero.badge}</div>
+                    <h1>${data.hero.title}</h1>
+                    <p>${data.hero.desc}</p>
+                    <div class="scene-tag">
+                        <span>🎧 当前场景：${data.name}</span>
+                        <span>·</span>
+                        <span>✨ ${data.hero.sceneTag}</span>
+                    </div>
+                    <button class="cta-button" onclick="alert('立即预订 QuietFlow 耳机，早鸟价 \\$149 → 访问 quietflow.ai')">立即预订 QuietFlow →</button>
+                </div>
+            </section>
+
+            <div class="section-title">😫 没有 QuietFlow 时的噪音困境</div>
+            <div class="pain-grid">
+                ${data.pain.map(p => `
+                    <div class="pain-card">
+                        <div class="pain-icon">${p.icon}</div>
+                        <h4>${p.title}</h4>
+                        <p>${p.desc}</p>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-highlight">🎯 QuietFlow 耳机如何解决？</div>
+                <div class="solution-desc">${data.solution}</div>
+                <div class="earphone-mention">
+                    🔹 QuietFlow 耳机采用人体工学设计，单机重量仅250g，长时间佩戴无压迫感 🔹
+                </div>
+            </div>
+
+            <div class="section-title">⚡ QuietFlow 耳机 · 硬核实力</div>
+            <div class="features">
+                ${data.features.map(f => `
+                    <div class="feature-card">
+                        <div class="feature-icon">${f.icon}</div>
+                        <h3>${f.title}</h3>
+                        <p>${f.desc}</p>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="usecase-single">
+                <div class="scene-icon">${data.useCase.icon}</div>
+                <h2>${data.useCase.title}</h2>
+                <div class="usecase-detail-rich">
+                    <p>${data.useCase.detail1}</p>
+                    <p>${data.useCase.detail2}</p>
+                    <p>${data.useCase.detail3}</p>
+                    ${data.useCase.detail4 ? `<p>${data.useCase.detail4}</p>` : ''}
+                    <p><span class="highlight">✨ ${data.useCase.result}</span></p>
+                </div>
+                <div class="earphone-mention" style="margin-top: 24px;">
+                    🎧 QuietFlow 耳机 · AI智能降噪 | 50小时续航 | 蓝牙5.3 | 支持有线模式 🎧
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>🚀 戴上 QuietFlow，重新定义你的听觉世界</h2>
+                <p>前1000名预订用户享早鸟价 $149（原价 $249）</p>
+                <button class="cta-big" onclick="alert('前往独立站：quietflow.ai/pre-order')">立即预订 QuietFlow 耳机 →</button>
+                <p style="margin-top: 24px; font-size: 0.8rem;">30天无理由退货 · 2年保修 · 全球顺丰包邮</p>
+            </div>
+        `;
+
+        app.innerHTML = html;
+    }
+
+    function switchScene(sceneKey) {
+        if (!scenesData[sceneKey]) return;
+        currentScene = sceneKey;
+        renderScene(sceneKey);
+        document.querySelectorAll(".scene-btn").forEach(btn => {
+            if (btn.getAttribute("data-scene") === sceneKey) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function bindTopButtons() {
+        document.querySelectorAll(".scene-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const scene = btn.getAttribute("data-scene");
+                if (scene) switchScene(scene);
+            });
+        });
+    }
+
+    renderScene("plane");
+    bindTopButtons();
+</script>
+</body>
+</html>
